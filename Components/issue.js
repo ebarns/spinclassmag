@@ -2,7 +2,7 @@
  * Created by localadmin on 8/7/17.
  */
 import React, {Component} from 'react';
-import {Image, View, StyleSheet, ScrollView} from 'react-native';
+import {Image, View, StyleSheet, ScrollView, Button} from 'react-native';
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 
 export class IssueScreen extends Component {

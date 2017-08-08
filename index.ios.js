@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {Animated, AppRegistry, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Animated, AppRegistry, Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 import * as Easing from 'react-native/Libraries/Animated/src/Easing';
@@ -14,29 +14,51 @@ import {Header} from './Components/header';
 import {MagIssue} from './Components/magissue';
 import {IssueScreen} from './Components/issue';
 import {Footer} from './Components/footer';
+import {Fade, Wave} from "./Components/wave";
+
 
 class HomeScreen extends Component {
     static navigationOptions = {
         header: null,
-        headerBackTitle: "Back"
+        headerBackTitle: "Back",
+    }
+
+    constructor() {
+        super()
+        this.state = {
+            visible: false,
+        }
+    }
+
+    handleScroll(event){
+        var y = event.nativeEvent.contentOffset.y;
+        if(y > 300){
+            this.setState({visible: true});
+        }
     }
 
     render() {
         const {navigate} = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <ScrollView
+                    style={styles.main_scroll_container}
                     pagingEnabled={true}
-                    style={styles.main_scroll_container}>
+                    onScroll={this.handleScroll.bind(this)}
+                >
                     <Header/>
-                    <Body
-                        navigation={this.props.navigation}
-                    />
+                    <Fade visible={this.state.visible}>
+                        <Body
+                            navigation={this.props.navigation}
+                        />
+                    </Fade>
                     <Footer/>
                 </ScrollView>
             </View>
         );
     }
+
 }
 
 class Body extends Component {
@@ -58,7 +80,7 @@ class Body extends Component {
         return (
             <View style={styles.body_container}>
                 <Text style={styles.title}>Issues</Text>
-                <ScrollText />
+                <ScrollText/>
                 <ScrollView
                     horizontal={true}
                     pagingEnabled={true}

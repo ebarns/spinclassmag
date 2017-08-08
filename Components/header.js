@@ -8,9 +8,15 @@ import FontAwesome, {Icons} from 'react-native-fontawesome';
 import * as Easing from 'react-native/Libraries/Animated/src/Easing';
 
 export class Header extends Component {
+    constructor(){
+        super()
+        this.state = {
+            scrollY: new Animated.Value(0)
+        }
+    }
     render() {
         return (
-            <View style={{width:responsiveWidth(100),flexDirection: 'row', backgroundColor: '#060708'}}>
+            <View style={{ width:responsiveWidth(100),flexDirection: 'row', backgroundColor: '#060708'}}>
                 <ScrollDownText />
                 <View style={styles.header_container}>
                     <Image
@@ -63,14 +69,14 @@ class ScrollDownText extends Component {
             >
                 <Animated.View
                     style={{
-                        top: movingDown,
+                        bottom: movingDown,
                         opacity: opacity,
                     }}
                 >
                     <View style={{flexDirection: 'column'}}>
-                            <FontAwesome style={styles.arrowColor}>{Icons.caretDown}</FontAwesome>
-                            <FontAwesome style={styles.arrowColor}>{Icons.caretDown}</FontAwesome>
-                            <FontAwesome style={styles.arrowColor}>{Icons.caretDown}</FontAwesome>
+                            <FontAwesome style={styles.arrowColor}>{Icons.caretUp}</FontAwesome>
+                            <FontAwesome style={styles.arrowColor}>{Icons.caretUp}</FontAwesome>
+                            <FontAwesome style={styles.arrowColor}>{Icons.caretUp}</FontAwesome>
                     </View>
                 </Animated.View>
             </View>
@@ -92,6 +98,7 @@ const styles = StyleSheet.create({
         height: responsiveHeight(75),
     },
     slideDown: {
+        paddingTop: responsiveHeight(80),
         alignItems: 'flex-start',
         paddingLeft: responsiveWidth(2),
         height: 200
